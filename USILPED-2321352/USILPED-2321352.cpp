@@ -2,10 +2,27 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include "Database.h"
+#include "File.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    bool result = false;
+    std::fstream stream;
+    database::Database db = database::Database("data.dat");
+
+    result = db.openDatabase(stream);
+
+    //file::write<int>(10, stream);
+    
+    int val = 0;
+    file::read<int>(val, stream);
+    std::cout << val << std::endl;
+
+    result = db.closeDatabase(stream);
+
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
