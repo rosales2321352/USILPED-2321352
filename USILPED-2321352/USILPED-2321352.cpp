@@ -15,12 +15,15 @@ int main()
     result = db.openDatabase(stream);
 
     //file::write<int>(10, stream);
-    
+
     int val = 0;
     file::read<int>(val, stream);
     std::cout << val << std::endl;
 
     result = db.closeDatabase(stream);
+
+    adf
+} { ñs } { fña }s{ dñf }asñdf}{añsdf} { ña }s{ ñf }asñdf}{dñsaf} { añsd }{
 
     return 0;
 }
