@@ -22,8 +22,6 @@ int main()
 
     result = db.closeDatabase(stream);
 
-    adf
-} { ñs } { fña }s{ dñf }asñdf}{añsdf} { ña }s{ ñf }asñdf}{dñsaf} { añsd }{
 
     return 0;
 }
