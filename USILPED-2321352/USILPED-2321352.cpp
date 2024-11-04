@@ -2,26 +2,43 @@
 //
 
 #include <iostream>
-#include <fstream>
-#include "Database.h"
-#include "File.h"
+#include "HashTable.h"
+#include "Structure.h"
+#include "UserRepository.h"
+
 
 int main()
 {
-    bool result = false;
-    std::fstream stream;
-    database::Database db = database::Database("data.dat");
 
-    result = db.openDatabase(stream);
-
-    //file::write<int>(10, stream);
+    user_repository::UserRepository userRepository = user_repository::UserRepository("users008.dat");
     
-    int val = 0;
-    file::read<int>(val, stream);
-    std::cout << val << std::endl;
 
-    result = db.closeDatabase(stream);
+    /*structure::User user1(1, "Juam3", "juan@email.com", "982822646", "Av.example", false);
+    structure::User user2(2, "Juam4", "jua2n@email.com", "982822646", "Av.example", false);
 
+    userRepository.saveUser(user1);
+    userRepository.saveUser(user2);*/
+    
+    
+    userRepository.print();
+
+    if (auto userOpt = userRepository.getUser(2))
+    {
+        User user = *userOpt;
+        User original = user;
+        user.name = "Juan7";
+        userRepository.updateUser(original,user);
+    }
+    else {
+        std::cout << "Usuario no encontrado." << std::endl;
+    }
+
+
+    userRepository.print();
+    
+
+
+    
     return 0;
 }
 

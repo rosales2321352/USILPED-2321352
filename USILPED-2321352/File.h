@@ -47,7 +47,7 @@ namespace file {
         }
         else
         {
-            std::cerr << "Unsupported type" << std::endl;
+            stream.write(reinterpret_cast<const char*>(&value), sizeof(value));
         }
     }
 
@@ -88,7 +88,7 @@ namespace file {
         }
         else
         {
-            std::cerr << "Unsupported type" << std::endl;
+            stream.read(reinterpret_cast<char*>(&value), sizeof (value));
         }
     }
 }
