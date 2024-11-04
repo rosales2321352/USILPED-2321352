@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Database.h"
 #include "File.h"
+#include "Structure.h"
 
 int main()
 {
@@ -12,17 +13,18 @@ int main()
     std::fstream stream;
     database::Database db = database::Database("data.dat");
 
+    /*result = db.openDatabase(stream);
+
+    structure::User user = { 10,"Juan","Hola", "982822646", "Hola Mundo", false};
+    file::write<structure::User>(user, stream);
+    
+    result = db.closeDatabase(stream);*/
     result = db.openDatabase(stream);
-
-    //file::write<int>(10, stream);
-
-    int val = 0;
-    file::read<int>(val, stream);
-    std::cout << val << std::endl;
-
+    structure::User readUser;
+    file::read<structure::User>(readUser, stream);
+    std::cout << readUser.id << std::endl;
     result = db.closeDatabase(stream);
-
-
+    
     return 0;
 }
 
