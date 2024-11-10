@@ -136,6 +136,9 @@
     <ClCompile Include="USILPED-2321352.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseRepository.h" />
+    <ClInclude Include="BookingRepository.h" />
+    <ClInclude Include="BookRepository.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="File.h" />

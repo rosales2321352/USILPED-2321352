@@ -16,7 +16,7 @@ namespace hash_table{
 		optional<valueT> get(const keyT& key);
 		bool remove(const keyT& key);
 		bool contains(const keyT& key);
-		void print();
+		void print(string val);
 
 	private:
 		vector<optional<pair<keyT, valueT>>> table;
@@ -141,15 +141,7 @@ namespace hash_table{
 		return get(key).has_value();
 	}
 
-	template<typename keyT, typename valueT>
-	void HashTable<keyT, valueT>::print(){
-		for (size_t i = 0; i < table.size(); ++i) {
-			if (table[i].has_value()) {
-				std::cout << "Indice " << i << ": [" << table[i]->first
-					<< " -> " << table[i]->second.name << "]" << std::endl;
-			}
-		}
-	}
+	
 
 
 #pragma endregion
