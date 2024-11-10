@@ -10,20 +10,25 @@ using namespace std;
 
 namespace structure
 {
+	template<typename T>
+	struct NodeLinkedList;
+	template<typename T>
+	struct LinkedList;
+	class Booking;
+	class Book;
+
 	class Base {
 	public:
 		long pointerOfFile;
 		bool isDeleted;
 		int id;
-		Base() :id(-1), isDeleted(false), pointerOfFile(pointerOfFile){};
-		Base(int id) : id(id), isDeleted(false), pointerOfFile(pointerOfFile){};
+		Base() :id(-1), isDeleted(false), pointerOfFile(pointerOfFile) {};
+		Base(int id) : id(id), isDeleted(false), pointerOfFile(pointerOfFile) {};
 		~Base() {}
 		bool operator==(const Base& other) const {
 			return id == other.id;
 		}
 	};
-
-	
 
 	class User : public Base {
 	public:
@@ -39,8 +44,8 @@ namespace structure
 			: Base(id), name(name), email(email), phoneNumber(phoneNumber), address(address), isAdmin(isAdmin) {}
 
 		// Método para escribir el usuario en un archivo
-		void write(std::fstream& stream,streampos position = NULL) {
-			if(position == NULL)
+		void write(std::fstream& stream, streampos position = NULL) {
+			if (position == NULL)
 				stream.seekp(position, std::ios::beg);
 			file::write<int>(id, stream);
 			file::write<string>(name, stream);
@@ -51,7 +56,7 @@ namespace structure
 			file::write<bool>(isDeleted, stream);
 			stream.seekp(0, std::ios::end);
 		}
-				
+
 		// Método para leer el usuario desde un archivo
 		void read(std::fstream& stream) {
 			pointerOfFile = stream.tellg();
@@ -74,6 +79,7 @@ namespace structure
 		string gender;
 		int publicationYear;
 		bool disponibility;
+		LinkedList<Booking>* value;
 
 		Book() : Base(), publicationYear(-1), disponibility(false) {}
 		Book(std::fstream& stream) { read(stream); }
@@ -103,6 +109,7 @@ namespace structure
 		}
 	};
 
+
 	class Booking : public Base
 	{
 	public:
@@ -113,7 +120,7 @@ namespace structure
 		bool returned;
 		Booking() : Base(), idUser(-1), idBook(-1), returned(false) {}
 		Booking(std::fstream& stream) { read(stream); }
-		Booking(int id,int idUser, int idBook, const string& bookingDate, const string& returnDate, bool returned) :
+		Booking(int id, int idUser, int idBook, const string& bookingDate, const string& returnDate, bool returned) :
 			Base(id), idUser(idUser), idBook(idBook), bookingDate(bookingDate), returnDate(returnDate), returned(returned) {};
 
 		void write(std::fstream& stream, streampos position = NULL) {
@@ -141,6 +148,46 @@ namespace structure
 			file::read<bool>(isDeleted, stream);
 		}
 
+	};
+	template<typename T>
+	struct  NodeLinkedList
+	{
+		T value;
+		NodeLinkedList* next;
+
+		NodeLinkedList() {
+			value = T();
+			next = nullptr;
+		}
+	};
+	template<typename T>
+	class LinkedList {
+	public:
+		NodeLinkedList<T>* root;
+
+		LinkedList() {
+			root = nullptr;
+		}
+		
+		void add(T value)
+		{
+			add(value, root);
+		}
+
+	private:
+		void add(T value, NodeLinkedList<T>* &node)
+		{
+			if (node == nullptr) {
+				
+				NodeLinkedList<T>* new_node = new NodeLinkedList<T>();
+				new_node->value = value;
+				node = new_node;
+				return;
+				
+			}
+
+			return add(value, node->next);
+		}
 	};
 
 	

@@ -48,6 +48,21 @@ int main()
     //initData();
 
     
+    structure::Booking booking1(1, 1, 1, "2024-11-10", "2024-11-20", false);
+    structure::Booking booking2(2, 2, 1, "2024-11-21", "2024-11-22", false);
+    structure::Booking booking3(3, 1, 1, "2024-11-25", "2024-11-30", false);
+    structure::Booking booking4(4, 2, 1, "2024-12-01", "2024-12-10", false);
+    structure::Booking booking5(5, 1, 1, "2024-12-11", "2024-12-31", false);
+    
+    LinkedList<Booking> *list = new LinkedList<Booking>();
+
+    list->add(booking1);
+    list->add(booking2);
+    list->add(booking3);
+    list->add(booking4);
+    list->add(booking5);
+
+    
 
     /*if (auto userOpt = userRepository.getUser(2))
     {
