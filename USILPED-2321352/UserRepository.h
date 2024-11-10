@@ -70,26 +70,31 @@ namespace user_repository
 		}
 		return result;
 	}
-	bool UserRepository::updateUser(structure::User& originalUser, structure::User& user)
-	{
+	
+	bool UserRepository::updateUser(structure::User& originalUser, structure::User& user) {
 		bool result = false;
 		if (user.id != -1 && user.pointerOfFile != -1) {
 			std::fstream stream;
 			database::Database db = database::Database(filename);
 			result = db.openDatabase(stream);
+
 			if (hashTable.contains(user.id)) {
-				stream.seekp(user.pointerOfFile);
-				originalUser.isDeleted = true;
-				originalUser.write(stream);
-				stream.seekp(0, std::ios::end);
-				user.pointerOfFile = stream.tellp();
+				// Colocamos el cursor en la posición del archivo del usuario original
+				stream.seekp(originalUser.pointerOfFile);
+
+				// Escribimos el usuario actualizado en la misma posición
 				user.write(stream);
+
+				// Actualizamos el puntero de archivo en el hashTable
 				hashTable.insert(user.id, user);
+				user.pointerOfFile = originalUser.pointerOfFile;
 			}
+
 			result = db.closeDatabase(stream);
 		}
 		return result;
 	}
+
 	bool UserRepository::saveUser(structure::User& user)
 	{
 		bool result = false;
