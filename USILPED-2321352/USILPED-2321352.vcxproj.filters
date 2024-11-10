@@ -44,5 +44,17 @@
     <ClInclude Include="HashTable.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="BaseRepository.h">
+      <Filter>Header Files\Repostitory</Filter>
+    </ClInclude>
+    <ClInclude Include="BookRepository.h">
+      <Filter>Header Files\Repostitory</Filter>
+    </ClInclude>
+    <ClInclude Include="BookingRepository.h">
+      <Filter>Header Files\Repostitory</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

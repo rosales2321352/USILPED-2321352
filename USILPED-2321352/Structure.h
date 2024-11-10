@@ -23,6 +23,8 @@ namespace structure
 		}
 	};
 
+	
+
 	class User : public Base {
 	public:
 		string name;
@@ -37,7 +39,9 @@ namespace structure
 			: Base(id), name(name), email(email), phoneNumber(phoneNumber), address(address), isAdmin(isAdmin) {}
 
 		// Método para escribir el usuario en un archivo
-		void write(std::fstream& stream) {
+		void write(std::fstream& stream,streampos position = NULL) {
+			if(position == NULL)
+				stream.seekp(position, std::ios::beg);
 			file::write<int>(id, stream);
 			file::write<string>(name, stream);
 			file::write<string>(email, stream);
@@ -45,8 +49,9 @@ namespace structure
 			file::write<string>(address, stream);
 			file::write<bool>(isAdmin, stream);
 			file::write<bool>(isDeleted, stream);
+			stream.seekp(0, std::ios::end);
 		}
-
+				
 		// Método para leer el usuario desde un archivo
 		void read(std::fstream& stream) {
 			pointerOfFile = stream.tellg();
@@ -69,18 +74,32 @@ namespace structure
 		string gender;
 		int publicationYear;
 		bool disponibility;
-		Book() : Base(), publicationYear(-1),disponibility(false){}
+
+		Book() : Base(), publicationYear(-1), disponibility(false) {}
+		Book(std::fstream& stream) { read(stream); }
 		Book(int id, const string& title, const string& author, const string& gender, int publicationYear, bool disponibility) :
 			Base(id), title(title), author(author), gender(gender), publicationYear(publicationYear), disponibility(disponibility) {}
 
-		friend istream& operator>>(istream& is, Book& book)
-		{
-			is >> book.id;
-			is >> book.author;
-			is >> book.gender;
-			is >> book.publicationYear;
-			is >> book.disponibility;
-			return is;
+		void write(std::fstream& stream, streampos position = NULL) {
+			if (position == NULL)
+				stream.seekp(position, std::ios::beg);
+			file::write<int>(id, stream);
+			file::write<string>(title, stream);
+			file::write<string>(author, stream);
+			file::write<int>(publicationYear, stream);
+			file::write<bool>(disponibility, stream);
+			file::write<bool>(isDeleted, stream);
+			stream.seekp(0, std::ios::end);
+		}
+
+		void read(std::fstream& stream) {
+			pointerOfFile = stream.tellg();
+			file::read<int>(id, stream);
+			file::read<string>(title, stream);
+			file::read<string>(author, stream);
+			file::read<int>(publicationYear, stream);
+			file::read<bool>(disponibility, stream);
+			file::read<bool>(isDeleted, stream);
 		}
 	};
 
@@ -93,18 +112,35 @@ namespace structure
 		string returnDate;
 		bool returned;
 		Booking() : Base(), idUser(-1), idBook(-1), returned(false) {}
-		Booking(int idUser, int idBook, const string& bookingDate, const string& returnDate, bool returned) :
+		Booking(std::fstream& stream) { read(stream); }
+		Booking(int id,int idUser, int idBook, const string& bookingDate, const string& returnDate, bool returned) :
 			Base(id), idUser(idUser), idBook(idBook), bookingDate(bookingDate), returnDate(returnDate), returned(returned) {};
-		friend istream& operator>>(istream& is, Booking& booking)
-		{
-			is >> booking.id;
-			is >> booking.idUser;
-			is >> booking.idBook;
-			is >> booking.bookingDate;
-			is >> booking.returnDate;
-			is >> booking.returned;
-			return is;
+
+		void write(std::fstream& stream, streampos position = NULL) {
+			if (position == NULL)
+				stream.seekp(position, std::ios::beg);
+			file::write<int>(id, stream);
+			file::write<int>(idUser, stream);
+			file::write<int>(idBook, stream);
+			file::write<string>(bookingDate, stream);
+			file::write<string>(returnDate, stream);
+			file::write<bool>(returned, stream);
+			file::write<bool>(isDeleted, stream);
+			stream.seekp(0, std::ios::end);
 		}
+
+		// Método para leer el usuario desde un archivo
+		void read(std::fstream& stream) {
+			pointerOfFile = stream.tellg();
+			file::read<int>(id, stream);
+			file::read<int>(idUser, stream);
+			file::read<int>(idBook, stream);
+			file::read<string>(bookingDate, stream);
+			file::read<string>(returnDate, stream);
+			file::read<bool>(returned, stream);
+			file::read<bool>(isDeleted, stream);
+		}
+
 	};
 
 	
