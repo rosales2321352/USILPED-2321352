@@ -136,6 +136,7 @@
     <ClCompile Include="USILPED-2321352.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Colors.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="HashTable.h" />
